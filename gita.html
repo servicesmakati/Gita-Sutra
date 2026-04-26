@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gita Sutra · Hindi to Sanskrit</title>
+    <!-- Force proper Devanagari rendering on all platforms -->
+    <style>
+        /* Universal Devanagari font stack - ensures Hindi/Sanskrit shows correctly */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fbf7e8;
+            font-family: 'Noto Sans Devanagari', 'Segoe UI', 'Roboto', 'Nirmala UI', 'Mangal', 'Arial Unicode MS', system-ui, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app {
+            max-width: 680px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            padding: 1.6rem;
+            border: 1px solid #f3e5c8;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .badge {
+            background: #e6b422;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            color: #2c1a0e;
+            margin-bottom: 0.5rem;
+        }
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #b45f2b;
+            letter-spacing: -0.3px;
+            font-family: 'Noto Sans Devanagari', 'Segoe UI', system-ui;
+        }
+        .sub {
+            font-size: 0.8rem;
+            color: #a06e3f;
+            margin-top: 0.2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: #f2eadb;
+            border-radius: 2rem;
+            padding: 0.5rem 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .stat-card {
+            background: white;
+            padding: 0.2rem 1rem;
+            border-radius: 2rem;
+            display: flex;
+            gap: 0.4rem;
+            align-items: baseline;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .stat-card span:first-child {
+            color: #c67c2e;
+        }
+
+        .flashcard {
+            background: #fff6ea;
+            border-radius: 1.8rem;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.3rem;
+            cursor: pointer;
+            transition: 0.1s ease;
+            border: 2px solid #f3e2ca;
+            box-shadow: 0 6px 0 #e9dbbc;
+            text-align: center;
+        }
+        .flashcard:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #e9dbbc;
+        }
+        .hindi-line {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #a55117;
+            margin-bottom: 0.4rem;
+            line-height: 1.4;
+            font-family: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', sans-serif;
+        }
+        .sanskrit-line {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #2f2419;
+            background: #fef3e4;
+            padding: 0.7rem;
+            border-radius: 1.2rem;
+            margin-top: 0.6rem;
+            word-break: break-word;
+            font-family: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', sans-serif;
+            line-height: 1.5;
+        }
+        .tap-hint {
+            font-size: 0.65rem;
+            color: #bb8b5a;
+            margin-top: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        .quiz-box {
+            background: #f7efdf;
+            border-radius: 1.6rem;
+            padding: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        .quiz-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #5b3a1c;
+            margin-bottom: 0.6rem;
+        }
+        .input-row {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.6rem;
+        }
+        input {
+            flex: 2;
+            padding: 0.75rem 1rem;
+            border-radius: 3rem;
+            border: 1px solid #decdae;
+            background: white;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: 'Noto Sans Devanagari', monospace;
+        }
+        input:focus {
+            border-color: #e6b422;
+            box-shadow: 0 0 0 2px #ffe3b3;
+        }
+        button {
+            background: #dba553;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 3rem;
+            font-weight: bold;
+            color: #2b1d0c;
+            cursor: pointer;
+            transition: 0.05s linear;
+            font-weight: 700;
+        }
+        button:active {
+            transform: scale(0.96);
+        }
+        .btn-primary {
+            background: #c58632;
+            color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .btn-next {
+            background: #e8d5b5;
+            width: 100%;
+            margin-top: 0.6rem;
+        }
+        .feedback {
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .correct {
+            color: #1f6e2f;
+        }
+        .wrong {
+            color: #bc4a2c;
+        }
+
+        .streak-message {
+            background: #f9efdf;
+            border-radius: 2rem;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 0.9rem;
+        }
+
+        .x-share {
+            margin-top: 1.2rem;
+            text-align: center;
+        }
+        .share-btn {
+            background: #000000;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.35rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 2rem;
+            text-decoration: none;
+            border: none;
+        }
+        hr {
+            margin: 1rem 0 0.2rem;
+            border-color: #f2e2c6;
+        }
+        footer {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #bb8f60;
+            margin-top: 1rem;
+        }
+        @media (max-width: 480px) {
+            .app { padding: 1.2rem; }
+            .hindi-line { font-size: 1.2rem; }
+            .sanskrit-line { font-size: 1.1rem; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="header">
+        <div class="badge">📿 5 YEARS HINDI → GITA SANSKRIT</div>
+        <h1>गीता · संस्कृतम्</h1>
+        <div class="sub">Gita-centric · flashcard + quiz</div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card"><span>🏆 SCORE</span> <strong id="scoreDisplay">0</strong></div>
+        <div class="stat-card"><span>🔥 STREAK</span> <strong id="streakDisplay">0</strong></div>
+    </div>
+
+    <!-- interactive flashcard -->
+    <div class="flashcard" id="flashcard">
+        <div class="hindi-line" id="hindiText">लोड हो रहा है...</div>
+        <div id="sanskritBlock" class="sanskrit-line" style="display: none;"></div>
+        <div class="tap-hint">👇 कार्ड टैप करें → संस्कृत देखें / छिपाएँ</div>
+    </div>
+
+    <!-- quiz challenge -->
+    <div class="quiz-box">
+        <div class="quiz-label">✍️ संस्कृत में लिखें (देवनागरी या अंग्रेजी लिपि)</div>
+        <div class="input-row">
+            <input type="text" id="answerInput" placeholder="जैसे: योगः  या  yogaḥ" autocomplete="off">
+            <button class="btn-primary" id="checkBtn">✓ CHECK</button>
+        </div>
+        <div id="feedbackMsg" class="feedback"></div>
+        <button id="nextCardBtn" class="btn-next">🔄 अगला श्लोक</button>
+        <div class="streak-message" id="streakMsg">⚡ सही उत्तर = +10 अंक और streak बढ़ेगी</div>
+    </div>
+
+    <div class="x-share">
+        <button id="shareXBtn" class="share-btn">🐦 X पर प्रगति साझा करें</button>
+    </div>
+    <hr />
+    <footer>✨ भगवद गीता के श्लोक · दुओलिंगो हिंदी के बाद संस्कृत सेतु</footer>
+</div>
+
+<script>
+    // ---------- GITA-CENTRIC DATA (Hindi > Sanskrit) - All in proper Devanagari ----------
+    const VERSE_SET = [
+        { hindi: "कर्म करने का अधिकार है, फलों पर नहीं।", sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।", romanKey: "karmanyevadhikaraste ma phaleshu kadachana" },
+        { hindi: "योग साधना में समभाव को योग कहते हैं।", sanskrit: "समत्वं योग उच्यते।", romanKey: "samatvam yoga uchyate" },
+        { hindi: "जो जन्म-मृत्यु रहित सत्ता को जानता है।", sanskrit: "अजो नित्यः शाश्वतोऽयं पुराणः।", romanKey: "ajo nityah shashvato'yam puranah" },
+        { hindi: "ध्यान से परे, योग से परमात्मा दिखता है।", sanskrit: "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।", romanKey: "yogasthah kuru karmani sangam tyaktva dhananjaya" },
+        { hindi: "मैं सबका समान मित्र हूँ, कोई द्वेष नहीं।", sanskrit: "समोऽहं सर्वभूतेषु न मे द्वेष्योऽस्ति न प्रियः।", romanKey: "samo'ham sarvabhuteshu na me dveshyo'sti na priyah" },
+        { hindi: "जो न तो शोक करता है और न आकांक्षा रखता।", sanskrit: "न शोचति न काङ्क्षति समः सर्वत्र विद्यते।", romanKey: "na shochati na kankshati samah sarvatra vidyate" },
+        { hindi: "क्षणिक भौतिक सुख दुःख के स्रोत हैं।", sanskrit: "आगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत।", romanKey: "agamapayino'nityastamstitikshasva bharata" },
+        { hindi: "भक्ति से मुझे जाना जाता है, फिर मेरे धाम को।", sanskrit: "भक्त्या मामभिजानाति यावान्स च तत्त्वतः।", romanKey: "bhaktya mamabhijanati yavan sa cha tattvatah" },
+        { hindi: "मैं ही अग्नि, वायु, पृथ्वी, चन्द्रमा हूँ।", sanskrit: "अहं वैश्वानरो भूत्वा प्राणिनां देहमाश्रितः।", romanKey: "aham vaishvanaro bhootva praninam dehamashritah" }
+    ];
+
+    // ----- state -----
+    let currentIdx = 0;
+    let currentVerse = VERSE_SET[currentIdx];
+    let score = 0;
+    let streak = 0;
+    let isRevealed = false;
+    let alreadyScored = false;
+
+    // DOM elements
+    const hindiEl = document.getElementById("hindiText");
+    const sanskritBlock = document.getElementById("sanskritBlock");
+    const flashcardDiv = document.getElementById("flashcard");
+    const answerInput = document.getElementById("answerInput");
+    const checkBtn = document.getElementById("checkBtn");
+    const nextBtn = document.getElementById("nextCardBtn");
+    const feedbackDiv = document.getElementById("feedbackMsg");
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    const streakDisplay = document.getElementById("streakDisplay");
+    const streakMsgSpan = document.getElementById("streakMsg");
+
+    // helper: update stats UI
+    function updateUI() {
+        scoreDisplay.innerText = score;
+        streakDisplay.innerText = streak;
+        if (streak > 0) {
+            streakMsgSpan.innerHTML = `🔥 STREAK x${streak} — सही उत्तर देते रहें! 🔥`;
+        } else {
+            streakMsgSpan.innerHTML = `⚡ सही उत्तर → +10 अंक और streak बढ़ेगी!`;
+        }
+    }
+
+    // normalize user answer (trim, lowercase, remove punctuation, collapse spaces)
+    function normalizeStr(str) {
+        return str.trim().toLowerCase().replace(/[.,;:!?'"()]/g, '').replace(/\s+/g, ' ');
+    }
+
+    // fuzzy matching: exact sanskrit OR roman hint (ignore spaces and diacritics)
+    function isAnswerCorrect(userAns, verse) {
+        let normUser = normalizeStr(userAns);
+        let targetSkt = normalizeStr(verse.sanskrit);
+        let targetRoman = normalizeStr(verse.romanKey);
+        
+        // direct compare normalized devanagari
+        if (normUser === targetSkt) return true;
+        if (targetRoman && normUser === targetRoman) return true;
+        
+        // remove all spaces and compare
+        let userNoSpace = normUser.replace(/\s/g, '');
+        let sktNoSpace = targetSkt.replace(/\s/g, '');
+        if (userNoSpace === sktNoSpace) return true;
+        if (targetRoman && userNoSpace === targetRoman.replace(/\s/g, '')) return true;
+        
+        // remove diacritics for roman-only (ā, ś, etc) -> basic ascii match
+        const toAscii = (txt) => txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+        let userAscii = toAscii(normUser);
+        let sktAscii = toAscii(targetSkt);
+        let romanAscii = toAscii(targetRoman);
+        if (userAscii === sktAscii) return true;
+        if (romanAscii && userAscii === romanAscii) return true;
+        
+        return false;
+    }
+
+    // load current card into flashcard
+    function loadCard() {
+        currentVerse = VERSE_SET[currentIdx];
+        hindiEl.innerText = currentVerse.hindi;
+        sanskritBlock.innerText = currentVerse.sanskrit;
+        // hide sanskrit by default
+        sanskritBlock.style.display = "none";
+        isRevealed = false;
+        alreadyScored = false;
+        // clear input & feedback
+        answerInput.value = "";
+        feedbackDiv.innerHTML = "";
+        feedbackDiv.className = "feedback";
+        answerInput.focus();
+    }
+
+    // next card
+    function nextCard() {
+        currentIdx = (currentIdx + 1) % VERSE_SET.length;
+        loadCard();
+        feedbackDiv.innerHTML = "🕉️ नया श्लोक! संस्कृत लिखें या कार्ड टैप करें।";
+        feedbackDiv.className = "feedback";
+    }
+
+    // check answer and award points
+    function checkAnswer() {
+        const userAnswer = answerInput.value;
+        if (!userAnswer.trim()) {
+            feedbackDiv.innerHTML = "📿 कृपया संस्कृत या roman में उत्तर लिखें।";
+            feedbackDiv.className = "feedback wrong";
+            return;
+        }
+        
+        const correct = isAnswerCorrect(userAnswer, currentVerse);
+        
+        if (correct) {
+            if (!alreadyScored) {
+                score += 10;
+                streak += 1;
+                alreadyScored = true;
+                updateUI();
+                feedbackDiv.innerHTML = "✅ सही! +10 अंक, streak +1!  🙏";
+                feedbackDiv.className = "feedback correct";
+                // auto-reveal sanskrit for reinforcement
+                if (!isRevealed) {
+                    sanskritBlock.style.display = "block";
+                    isRevealed = true;
+                }
+            } else {
+                feedbackDiv.innerHTML = "✨ आपने इस श्लोक के अंक पहले ले लिए! अगले श्लोक पर जाएँ।";
+                feedbackDiv.className = "feedback correct";
+            }
+        } else {
+            // wrong answer: reset streak to 0
+            if (streak !== 0) {
+                streak = 0;
+                updateUI();
+                feedbackDiv.innerHTML = `❌ गलत! सही उत्तर: "${currentVerse.sanskrit}" । स्ट्रीक टूट गया।`;
+            } else {
+                feedbackDiv.innerHTML = `❌ गलत। सही है: ${currentVerse.sanskrit} । पुनः प्रयास करें।`;
+            }
+            feedbackDiv.className = "feedback wrong";
+            updateUI();
+        }
+        answerInput.value = "";
+        answerInput.focus();
+    }
+
+    // toggle flashcard
+    function toggleFlashcard() {
+        if (isRevealed) {
+            sanskritBlock.style.display = "none";
+            isRevealed = false;
+        } else {
+            sanskritBlock.style.display = "block";
+            isRevealed = true;
+        }
+    }
+
+    // share on X
+    function shareOnX() {
+        const shareText = `📖 After 5 years of Duolingo Hindi → now unlocking Bhagavad Gita in Sanskrit!\n\n🏆 My Gita Sanskrit score: ${score} pts\n🔥 Streak: ${streak}\n🌀 Learn Gita-centric Hindi→Sanskrit now.\n\n#GitaSanskrit #DuolingoComplete #SanskritForAll`;
+        const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+        window.open(tweetUrl, '_blank');
+    }
+
+    // event binding
+    function bindEvents() {
+        checkBtn.addEventListener("click", checkAnswer);
+        nextBtn.addEventListener("click", nextCard);
+        flashcardDiv.addEventListener("click", toggleFlashcard);
+        document.getElementById("shareXBtn").addEventListener("click", shareOnX);
+        answerInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                checkAnswer();
+            }
+        });
+    }
+
+    // initialization
+    function init() {
+        currentIdx = 0;
+        currentVerse = VERSE_SET[0];
+        score = 0;
+        streak = 0;
+        alreadyScored = false;
+        loadCard();
+        updateUI();
+        bindEvents();
+        feedbackDiv.innerHTML = "🌟 कार्ड टैप करें संस्कृत देखने के लिए। नीचे संस्कृत लिखें।";
+        feedbackDiv.className = "feedback";
+        answerInput.focus();
+    }
+    
+    init();
+</script>
+</body>
+</html>
