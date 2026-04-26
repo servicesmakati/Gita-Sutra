@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Gita Sutra · Hindi to Sanskrit</title>
+    <title>Gita Sutra · Sanskrit from Hindi</title>
     <style>
         * {
             margin: 0;
@@ -12,555 +12,468 @@
         }
 
         body {
-            background: linear-gradient(145deg, #fef7e0 0%, #fff3e0 100%);
-            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, sans-serif;
-            color: #2c1a0e;
-            padding: 1.2rem;
+            background: #fbf7e8;
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            padding: 1rem;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* main container */
+        /* main card container */
         .app {
-            max-width: 700px;
-            margin: 0 auto;
-            background: rgba(255, 255, 245, 0.9);
-            border-radius: 3rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(2px);
-            padding: 1.8rem 1.5rem 2.2rem;
-            border: 1px solid #ffe0a3;
+            max-width: 680px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            padding: 1.6rem;
+            border: 1px solid #f3e5c8;
+            transition: all 0.2s;
         }
 
         /* header */
         .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         .badge {
             background: #e6b422;
             display: inline-block;
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 1rem;
             border-radius: 40px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: #2c1a0e;
-            margin-bottom: 0.8rem;
-            box-shadow: inset 0 -1px 0 #c28a1a, 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 0.5rem;
         }
         h1 {
-            font-size: 2.2rem;
+            font-size: 1.9rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #b45f2b, #7a3e1a);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #b45f2b;
             letter-spacing: -0.3px;
         }
         .sub {
-            color: #6b4c2c;
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
-            border-top: 1px dashed #f0dbaa;
-            display: inline-block;
-            padding-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #a06e3f;
+            margin-top: 0.2rem;
         }
 
-        /* progress & score */
-        .progress-stats {
+        /* stats row */
+        .stats {
             display: flex;
             justify-content: space-between;
-            background: #f2e6d4;
+            background: #f2eadb;
             border-radius: 2rem;
-            padding: 0.7rem 1.3rem;
-            margin-bottom: 1.8rem;
+            padding: 0.5rem 1.3rem;
+            margin-bottom: 1.5rem;
             font-weight: 600;
         }
-        .score, .streak {
+        .stat-card {
             background: white;
             padding: 0.2rem 1rem;
             border-radius: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .score span, .streak span {
-            color: #bf6f00;
-            margin-right: 6px;
-        }
-
-        /* flashcard area */
-        .flashcard {
-            background: #fff8ef;
-            border-radius: 2rem;
-            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.2);
-            padding: 1.8rem 1rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid #ffdfaa;
-        }
-        .hindi-phrase {
-            font-size: 1.7rem;
-            font-weight: 600;
-            text-align: center;
-            color: #a25d2a;
-            margin-bottom: 0.5rem;
-            word-break: break-word;
-        }
-        .sanskrit-phrase {
-            font-size: 1.6rem;
-            text-align: center;
-            font-family: 'Noto Sans Devanagari', 'Segoe UI', 'Roboto', sans-serif;
-            font-weight: 500;
-            color: #3c2a1c;
-            background: #f7f0e2;
-            padding: 0.8rem;
-            border-radius: 1.5rem;
-            margin-top: 0.8rem;
-            word-break: break-word;
-        }
-        .flip-hint {
-            text-align: center;
-            font-size: 0.7rem;
-            margin-top: 0.7rem;
-            color: #b48b5a;
-            letter-spacing: 0.5px;
-        }
-
-        /* input area (gamified quiz) */
-        .quiz-area {
-            margin-top: 0.5rem;
-            background: #f8efdf;
-            border-radius: 2rem;
-            padding: 1.5rem;
-        }
-        .question {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: #5a3a20;
-        }
-        .input-group {
             display: flex;
-            gap: 0.7rem;
+            gap: 0.4rem;
+            align-items: baseline;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .stat-card span:first-child {
+            color: #c67c2e;
+        }
+
+        /* flashcard - tappable */
+        .flashcard {
+            background: #fff6ea;
+            border-radius: 1.8rem;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.3rem;
+            cursor: pointer;
+            transition: 0.1s ease;
+            border: 2px solid #f3e2ca;
+            box-shadow: 0 6px 0 #e9dbbc;
+            text-align: center;
+        }
+        .flashcard:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #e9dbbc;
+        }
+        .hindi-line {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #a55117;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+        .sanskrit-line {
+            font-size: 1.4rem;
+            font-family: 'Noto Sans Devanagari', 'Segoe UI', monospace;
+            font-weight: 500;
+            color: #2f2419;
+            background: #fef3e4;
+            padding: 0.7rem;
+            border-radius: 1.2rem;
+            margin-top: 0.6rem;
+            word-break: break-word;
+        }
+        .tap-hint {
+            font-size: 0.65rem;
+            color: #bb8b5a;
+            margin-top: 0.5rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* quiz area */
+        .quiz-box {
+            background: #f7efdf;
+            border-radius: 1.6rem;
+            padding: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        .quiz-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #5b3a1c;
+            margin-bottom: 0.6rem;
+        }
+        .input-row {
+            display: flex;
+            gap: 0.6rem;
             flex-wrap: wrap;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
         input {
             flex: 2;
-            padding: 0.8rem 1rem;
+            padding: 0.75rem 1rem;
             border-radius: 3rem;
-            border: 1px solid #e2c7a2;
+            border: 1px solid #decdae;
             background: white;
-            font-size: 1rem;
-            font-family: monospace;
+            font-size: 0.95rem;
             outline: none;
+            font-family: monospace;
         }
         input:focus {
             border-color: #e6b422;
-            box-shadow: 0 0 0 2px #f7e1b0;
+            box-shadow: 0 0 0 2px #ffe3b3;
         }
         button {
-            background: #deb887;
+            background: #dba553;
             border: none;
-            padding: 0.7rem 1.6rem;
+            padding: 0.6rem 1.4rem;
             border-radius: 3rem;
             font-weight: bold;
-            color: #2d1d0c;
+            color: #2b1d0c;
             cursor: pointer;
-            transition: 0.1s linear;
-            font-size: 0.95rem;
+            transition: 0.05s linear;
+            font-weight: 700;
         }
         button:active {
             transform: scale(0.96);
         }
-        .check-btn {
-            background: #c28a3a;
+        .btn-primary {
+            background: #c58632;
             color: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .next-card-btn {
-            background: #efd9b0;
+        .btn-next {
+            background: #e8d5b5;
             width: 100%;
-            margin-top: 0.8rem;
+            margin-top: 0.6rem;
         }
         .feedback {
             margin-top: 0.6rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
-        .correct-fb {
-            color: #2b6e2f;
+        .correct {
+            color: #1f6e2f;
         }
-        .wrong-fb {
-            color: #b13b2d;
+        .wrong {
+            color: #bc4a2c;
         }
 
-        /* gamification hints */
-        .streak-fire {
-            background: #f7e3c6;
+        .streak-message {
+            background: #f9efdf;
             border-radius: 2rem;
-            padding: 0.4rem 1rem;
-            text-align: center;
-            font-size: 0.85rem;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.75rem;
             font-weight: bold;
-            margin-top: 1rem;
+            text-align: center;
+            margin-top: 0.9rem;
         }
 
+        .x-share {
+            margin-top: 1.2rem;
+            text-align: center;
+        }
+        .share-btn {
+            background: #000000;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.35rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 2rem;
+        }
         hr {
-            margin: 1.5rem 0 0.5rem;
-            border: 1px solid #ffe1b3;
+            margin: 1rem 0 0.2rem;
+            border-color: #f2e2c6;
         }
         footer {
+            font-size: 0.65rem;
             text-align: center;
-            font-size: 0.7rem;
-            color: #a97c4a;
-            margin-top: 1.3rem;
+            color: #bb8f60;
+            margin-top: 1rem;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 480px) {
             .app { padding: 1.2rem; }
-            .hindi-phrase { font-size: 1.3rem; }
-            .sanskrit-phrase { font-size: 1.2rem; }
-            h1 { font-size: 1.8rem; }
+            .hindi-line { font-size: 1.2rem; }
+            .sanskrit-line { font-size: 1.1rem; }
+            h1 { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
 <div class="app">
     <div class="header">
-        <div class="badge">✨ 5 YEARS DUOLINGO → GITA SANSKRIT ✨</div>
+        <div class="badge">📿 5 YEARS HINDI → GITA SANSKRIT</div>
         <h1>गीता · संस्कृतम्</h1>
-        <div class="sub">Hindi → Sanskrit · Gita-centric roots</div>
+        <div class="sub">Gita-centric · flashcard + quiz</div>
     </div>
 
-    <div class="progress-stats">
-        <div class="score">🏆 SCORE: <span id="scoreValue">0</span></div>
-        <div class="streak">🔥 STREAK: <span id="streakValue">0</span></div>
+    <div class="stats">
+        <div class="stat-card"><span>🏆 SCORE</span> <strong id="scoreDisplay">0</strong></div>
+        <div class="stat-card"><span>🔥 STREAK</span> <strong id="streakDisplay">0</strong></div>
     </div>
 
-    <!-- FLIPCARD section -->
+    <!-- interactive flashcard -->
     <div class="flashcard" id="flashcard">
-        <div class="hindi-phrase" id="hindiText">loading...</div>
-        <div class="sanskrit-phrase" id="sanskritText" style="display: none;">—</div>
-        <div class="flip-hint">👇 tap card to reveal Sanskrit 👆</div>
+        <div class="hindi-line" id="hindiText">loading...</div>
+        <div id="sanskritBlock" class="sanskrit-line" style="display: none;"></div>
+        <div class="tap-hint">👇 tap card to reveal / hide Sanskrit</div>
     </div>
 
-    <!-- GAMIFIED QUIZ : translate to Sanskrit  -->
-    <div class="quiz-area">
-        <div class="question">📿 Type the Sanskrit equivalent (Devanagari or Roman? we accept both!)</div>
-        <div class="input-group">
+    <!-- quiz challenge -->
+    <div class="quiz-box">
+        <div class="quiz-label">✍️ संस्कृत में लिखें (Devanagari or roman script)</div>
+        <div class="input-row">
             <input type="text" id="answerInput" placeholder="e.g., योगः  or  yogaḥ" autocomplete="off">
-            <button class="check-btn" id="checkAnswerBtn">✓ CHECK</button>
+            <button class="btn-primary" id="checkBtn">✓ CHECK</button>
         </div>
         <div id="feedbackMsg" class="feedback"></div>
-        <button id="nextCardBtn" class="next-card-btn">🔄 NEXT SHLOKA</button>
-        <div class="streak-fire" id="comboMsg">⚡ tap NEXT or answer correctly → keep streak!</div>
+        <button id="nextCardBtn" class="btn-next">🔄 NEXT VERSE</button>
+        <div class="streak-message" id="streakMsg">⚡ correct answer = +10 & streak up</div>
+    </div>
+
+    <div class="x-share">
+        <button id="shareXBtn" class="share-btn">🐦 Share my progress on X</button>
     </div>
     <hr />
-    <footer>
-        🌸 Gita-centric: 12 core verses from Bhagavad Gita (Hindi → Sanskrit). Finish Duolingo → unlock divine words.<br>
-        🕉️ Share your streak on X (Twitter) ⬇️
-    </footer>
+    <footer>✨ Bhagavad Gita verses · After Duolingo Hindi → Sanskrit bridge</footer>
 </div>
 
 <script>
-    // ---------- GITA-CENTRIC DATABASE (Hindi phrase + Sanskrit original / translit) ----------
-    // Each card = { hindi: "Hindi meaning/line", sanskrit: "संस्कृतम्", romanHint: "optional roman for match validation" }
-    // We will accept answer if normalized matches sanskrit OR roman approximation (case/diacritics tolerant)
-    const cardsData = [
-        { 
-            hindi: "कर्म करने का अधिकार है, फलों पर नहीं।", 
-            sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।",
-            romanMatch: "karmanyevadhikaraste ma phaleshu kadachana"
-        },
-        { 
-            hindi: "योग साधना में समभाव को योग कहते हैं।", 
-            sanskrit: "समत्वं योग उच्यते।",
-            romanMatch: "samatvam yoga uchyate"
-        },
-        { 
-            hindi: "जो जन्म-मृत्यु रहित सत्ता को जानता है।", 
-            sanskrit: "अजो नित्यः शाश्वतोऽयं पुराणः।",
-            romanMatch: "ajo nityah shashvato'yam puranah"
-        },
-        { 
-            hindi: "ध्यान से परे, योग से परमात्मा दिखता है।", 
-            sanskrit: "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।",
-            romanMatch: "yogasthah kuru karmani sangam tyaktva dhananjaya"
-        },
-        { 
-            hindi: "मैं सबका समान मित्र हूँ, कोई द्वेष नहीं।", 
-            sanskrit: "समोऽहं सर्वभूतेषु न मे द्वेष्योऽस्ति न प्रियः।",
-            romanMatch: "samo'ham sarvabhuteshu na me dveshyo'sti na priyah"
-        },
-        { 
-            hindi: "जो न तो शोक करता है और न आकांक्षा रखता।", 
-            sanskrit: "न शोचति न काङ्क्षति समः सर्वत्र विद्यते।",
-            romanMatch: "na shochati na kankshati samah sarvatra vidyate"
-        },
-        { 
-            hindi: "क्षणिक भौतिक सुख दुःख के स्रोत हैं।", 
-            sanskrit: "आगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत।",
-            romanMatch: "agamapayino'nityastamstitikshasva bharata"
-        },
-        { 
-            hindi: "जो सब जगह मुझे देखता है और सब कुछ मुझमें।", 
-            sanskrit: "सर्वत्र समदर्शनः योगी मयि वसुंधराम्।",
-            romanMatch: "sarvatra samadarshinah yogi mayi vasundharam"
-        },
-        { 
-            hindi: "मन को वश में करो, योगी आत्मरत हो।", 
-            sanskrit: "युञ्जन्नेवं सदात्मानं योगी नियतमानसः।",
-            romanMatch: "yunjannevam sadatmanam yogi niyatamanasah"
-        },
-        { 
-            hindi: "भक्ति से मुझे जाना जाता है, फिर मेरे धाम को।", 
-            sanskrit: "भक्त्या मामभिजानाति यावान्स च तत्त्वतः।",
-            romanMatch: "bhaktya mamabhijanati yavan sa cha tattvatah"
-        },
-        { 
-            hindi: "मैं ही अग्नि, वायु, पृथ्वी, चन्द्रमा हूँ।", 
-            sanskrit: "अहं वैश्वानरो भूत्वा प्राणिनां देहमाश्रितः।",
-            romanMatch: "aham vaishvanaro bhootva praninam dehamashritah"
-        },
-        { 
-            hindi: "जिसने अहंकार त्यागा, वह शांति पाता है।", 
-            sanskrit: "वीतरागभयक्रोधो यो मां शरणमिच्छति।",
-            romanMatch: "vitaragabhayakrodho yo mam sharanamicchati"
-        }
+    // ---------- GITA-CENTRIC DATA (Hindi > Sanskrit) ----------
+    const VERSE_SET = [
+        { hindi: "कर्म करने का अधिकार है, फलों पर नहीं।", sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।", romanKey: "karmanyevadhikaraste ma phaleshu kadachana" },
+        { hindi: "योग साधना में समभाव को योग कहते हैं।", sanskrit: "समत्वं योग उच्यते।", romanKey: "samatvam yoga uchyate" },
+        { hindi: "जो जन्म-मृत्यु रहित सत्ता को जानता है।", sanskrit: "अजो नित्यः शाश्वतोऽयं पुराणः।", romanKey: "ajo nityah shashvato'yam puranah" },
+        { hindi: "ध्यान से परे, योग से परमात्मा दिखता है।", sanskrit: "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।", romanKey: "yogasthah kuru karmani sangam tyaktva dhananjaya" },
+        { hindi: "मैं सबका समान मित्र हूँ, कोई द्वेष नहीं।", sanskrit: "समोऽहं सर्वभूतेषु न मे द्वेष्योऽस्ति न प्रियः।", romanKey: "samo'ham sarvabhuteshu na me dveshyo'sti na priyah" },
+        { hindi: "जो न तो शोक करता है और न आकांक्षा रखता।", sanskrit: "न शोचति न काङ्क्षति समः सर्वत्र विद्यते।", romanKey: "na shochati na kankshati samah sarvatra vidyate" },
+        { hindi: "क्षणिक भौतिक सुख दुःख के स्रोत हैं।", sanskrit: "आगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत।", romanKey: "agamapayino'nityastamstitikshasva bharata" },
+        { hindi: "भक्ति से मुझे जाना जाता है, फिर मेरे धाम को।", sanskrit: "भक्त्या मामभिजानाति यावान्स च तत्त्वतः।", romanKey: "bhaktya mamabhijanati yavan sa cha tattvatah" },
+        { hindi: "मैं ही अग्नि, वायु, पृथ्वी, चन्द्रमा हूँ।", sanskrit: "अहं वैश्वानरो भूत्वा प्राणिनां देहमाश्रितः।", romanKey: "aham vaishvanaro bhootva praninam dehamashritah" }
     ];
 
-    // Current state
-    let currentIndex = 0;          // which card
-    let currentCard = cardsData[currentIndex];
+    // ----- state -----
+    let currentIdx = 0;
+    let currentVerse = VERSE_SET[currentIdx];
     let score = 0;
     let streak = 0;
-    let cardRevealed = false;       // is sanskrit visible on flashcard?
-    let lastAnswerCorrect = false;   // used for streak management (answer check)
+    let isRevealed = false;          // flashcard sanskrit visible?
+    let alreadyScored = false;        // prevent double points on same card
 
     // DOM elements
     const hindiEl = document.getElementById("hindiText");
-    const sanskritEl = document.getElementById("sanskritText");
+    const sanskritBlock = document.getElementById("sanskritBlock");
     const flashcardDiv = document.getElementById("flashcard");
     const answerInput = document.getElementById("answerInput");
-    const checkBtn = document.getElementById("checkAnswerBtn");
+    const checkBtn = document.getElementById("checkBtn");
     const nextBtn = document.getElementById("nextCardBtn");
     const feedbackDiv = document.getElementById("feedbackMsg");
-    const scoreSpan = document.getElementById("scoreValue");
-    const streakSpan = document.getElementById("streakValue");
-    const comboMsgSpan = document.getElementById("comboMsg");
+    const scoreDisplay = document.getElementById("scoreDisplay");
+    const streakDisplay = document.getElementById("streakDisplay");
+    const streakMsgSpan = document.getElementById("streakMsg");
 
-    // Helper: update UI scores
-    function updateStatsUI() {
-        scoreSpan.innerText = score;
-        streakSpan.innerText = streak;
-        comboMsgSpan.innerHTML = streak > 0 ? `🔥 STREAK x${streak} — keep going! 🔥` : `⚡ answer correct or tap NEXT to maintain streak? (but answer right for points)`;
-    }
-
-    // Normalization: convert user answer to comparable lowercase, remove spaces, remove diacritics? But devanagari vs roman.
-    // We accept both proper devanagari (exact match sanskrit after trimming spaces) OR romanized approximate.
-    function normalizeAnswer(ans) {
-        ans = ans.trim().toLowerCase();
-        // remove extra spaces and punctuation (like . , ! ?)
-        ans = ans.replace(/[.,!?;:'"()]/g, '');
-        ans = ans.replace(/\s+/g, ' ');
-        return ans;
-    }
-
-    // check if answer matches card's sanskrit OR roman hint
-    function isAnswerMatching(ans, card) {
-        let normalizedUser = normalizeAnswer(ans);
-        let targetSkt = card.sanskrit.trim().toLowerCase();
-        let targetRoman = card.romanMatch ? card.romanMatch.toLowerCase() : "";
-        
-        // remove all spaces and devanagari special? direct compare after removing spaces? we also handle approximate roman.
-        let userClean = normalizedUser.replace(/\s/g, '');
-        let sktClean = targetSkt.replace(/\s/g, '');
-        if (userClean === sktClean) return true;
-        
-        // compare with local romanMatch (remove spaces)
-        if (targetRoman) {
-            let romanClean = targetRoman.replace(/\s/g, '');
-            if (userClean === romanClean) return true;
-            // also allow if user writes roman with missing diacritics? comparision small subset: matching roughly
-            // for usability: if user types 'karmanyevadhikaraste ma phaleshu kadachana' ignore spaces
-            if (userClean === romanClean) return true;
+    // helper: update stats UI
+    function updateUI() {
+        scoreDisplay.innerText = score;
+        streakDisplay.innerText = streak;
+        if (streak > 0) {
+            streakMsgSpan.innerHTML = `🔥 STREAK x${streak} — keep answering correctly! 🔥`;
+        } else {
+            streakMsgSpan.innerHTML = `⚡ answer correctly → +10 points & streak grows!`;
         }
-        // second chance: maybe user typed devanagari with different vowel signs? we make slight flexible by checking if both after removing all spaces and '|'?
-        // but for simplicity and Gita love, we accept exact sanskrit string OR roman exactly as hint.
-        // but also allow if user writes something very similar: e.g., "yoga uchyate" -> match reference.
-        // extra check: if card.sanskrit after removing spaces matches after removing all spaces from user input
-        if (userClean === sktClean) return true;
+    }
+
+    // normalize user answer (trim, lowercase, remove punctuation, collapse spaces)
+    function normalizeStr(str) {
+        return str.trim().toLowerCase().replace(/[.,;:!?'"()]/g, '').replace(/\s+/g, ' ');
+    }
+
+    // fuzzy matching: exact sanskrit OR roman hint (ignore spaces and diacritics)
+    function isAnswerCorrect(userAns, verse) {
+        let normUser = normalizeStr(userAns);
+        let targetSkt = normalizeStr(verse.sanskrit);
+        let targetRoman = normalizeStr(verse.romanKey);
         
-        // edge: sometimes user enters Devanagari with halant difference? we do simple equals; duolingo graduates used to exact.
-        // roman approximate flexibility: final check if both strings after converting to ascii letters only match
-        const toAsciiRo = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
-        let userAscii = toAsciiRo(normalizedUser);
-        let sktAscii = toAsciiRo(targetSkt);
-        let romanAscii = toAsciiRo(targetRoman);
-        if (userAscii === sktAscii || (romanAscii && userAscii === romanAscii)) return true;
+        // direct compare normalized devanagari
+        if (normUser === targetSkt) return true;
+        if (targetRoman && normUser === targetRoman) return true;
+        
+        // extra loose: remove all spaces and compare (helps for roman)
+        let userNoSpace = normUser.replace(/\s/g, '');
+        let sktNoSpace = targetSkt.replace(/\s/g, '');
+        if (userNoSpace === sktNoSpace) return true;
+        if (targetRoman && userNoSpace === targetRoman.replace(/\s/g, '')) return true;
+        
+        // remove diacritics for roman-only (ā, ś, etc) -> basic ascii match
+        const toAscii = (txt) => txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+        let userAscii = toAscii(normUser);
+        let sktAscii = toAscii(targetSkt);
+        let romanAscii = toAscii(targetRoman);
+        if (userAscii === sktAscii) return true;
+        if (romanAscii && userAscii === romanAscii) return true;
         
         return false;
     }
 
-    // handle answer submission (gamified)
-    function handleCheckAnswer() {
+    // load current card into flashcard (reset reveal to hidden, reset scored flag)
+    function loadCard() {
+        currentVerse = VERSE_SET[currentIdx];
+        hindiEl.innerText = currentVerse.hindi;
+        sanskritBlock.innerText = currentVerse.sanskrit;
+        // hide sanskrit by default
+        sanskritBlock.style.display = "none";
+        isRevealed = false;
+        alreadyScored = false;
+        // clear input & feedback
+        answerInput.value = "";
+        feedbackDiv.innerHTML = "";
+        feedbackDiv.className = "feedback";
+        answerInput.focus();
+    }
+
+    // update flashcard content after next
+    function nextCard() {
+        currentIdx = (currentIdx + 1) % VERSE_SET.length;
+        loadCard();
+        // optional feedback reminder
+        feedbackDiv.innerHTML = "🕉️ नया श्लोक! संस्कृत लिखें या कार्ड टैप करें।";
+        feedbackDiv.className = "feedback";
+    }
+
+    // check answer and award points / update streak (core gamification)
+    function checkAnswer() {
         const userAnswer = answerInput.value;
         if (!userAnswer.trim()) {
-            feedbackDiv.innerHTML = "🧘‍♀️ कृपया उत्तर लिखें (type Sanskrit or roman)";
+            feedbackDiv.innerHTML = "📿 कृपया संस्कृत या roman में उत्तर लिखें।";
+            feedbackDiv.className = "feedback wrong";
             return;
         }
-        const isCorrect = isAnswerMatching(userAnswer, currentCard);
-        if (isCorrect) {
-            // increase score by 10 only if not already awarded for this card? we allow scoring once per card per session? 
-            // But user could answer correctly multiple times? we should prevent double scoring on same card. So check lastAnswerCorrect flag? 
-            // We'll only add points if the answer is correct AND this card hasn't been scored yet in this current 'session' (between next clicks)
-            if (!currentCard.scoredForCurrent) {
+        
+        const correct = isAnswerCorrect(userAnswer, currentVerse);
+        
+        if (correct) {
+            // if not already scored for this card
+            if (!alreadyScored) {
                 score += 10;
-                // increase streak only if last answer correct? but we combine: if correct now, streak++
-                streak++;
-                currentCard.scoredForCurrent = true;
-                feedbackDiv.innerHTML = "✅ शाबाश! सही उत्तर! (+10 pts, Streak +1)";
-                feedbackDiv.className = "feedback correct-fb";
-                updateStatsUI();
-                // reveal flashcard sanskrit if not already revealed? nicer to show
-                if (!cardRevealed) {
-                    // auto reveal the sanskrit side to reinforce
-                    sanskritEl.style.display = "block";
-                    cardRevealed = true;
+                streak += 1;
+                alreadyScored = true;
+                updateUI();
+                feedbackDiv.innerHTML = "✅ सही! +10 अंक, streak +1!  🙏";
+                feedbackDiv.className = "feedback correct";
+                // optional: auto-reveal sanskrit if hidden (good reinforcement)
+                if (!isRevealed) {
+                    sanskritBlock.style.display = "block";
+                    isRevealed = true;
                 }
-                // mark that this card's answer was correct for current session
-                lastAnswerCorrect = true;
             } else {
-                feedbackDiv.innerHTML = "🕉️ आपने पहले ही इस श्लोक के लिए अंक प्राप्त कर लिए! अगला कार्ड ट्राई करें।";
-                feedbackDiv.className = "feedback";
+                feedbackDiv.innerHTML = "✨ आपने इस श्लोक के अंक पहले ले लिए! अगले श्लोक पर जाएँ।";
+                feedbackDiv.className = "feedback correct";
             }
         } else {
-            // wrong answer: streak resets to 0
-            if (streak > 0) {
+            // wrong answer: reset streak to 0, but no score change
+            if (streak !== 0) {
                 streak = 0;
-                updateStatsUI();
-                feedbackDiv.innerHTML = `❌ गलत! सही उत्तर है: "${currentCard.sanskrit}" । स्ट्रीक टूट गया। पुनः प्रयास करें!`;
+                updateUI();
+                feedbackDiv.innerHTML = `❌ गलत! सही उत्तर: "${currentVerse.sanskrit}" । स्ट्रीक टूट गया। फिर से प्रयास करें।`;
             } else {
-                feedbackDiv.innerHTML = `❌ गलत! सही है: ${currentCard.sanskrit}। कोशिश करते रहें।`;
+                feedbackDiv.innerHTML = `❌ गलत। सही है: ${currentVerse.sanskrit} । पुनः प्रयास करें।`;
             }
-            feedbackDiv.className = "feedback wrong-fb";
-            lastAnswerCorrect = false;
-            updateStatsUI();
+            feedbackDiv.className = "feedback wrong";
+            updateUI();
         }
-        // clear input but keep focus for next
+        // clear input but keep focus for next attempt
         answerInput.value = "";
         answerInput.focus();
     }
 
-    // update flashcard content based on currentIndex, reset reveal state, but keep card revealed? default hide sanskrit
-    function loadCard() {
-        currentCard = cardsData[currentIndex];
-        hindiEl.innerText = currentCard.hindi;
-        sanskritEl.innerText = currentCard.sanskrit;
-        // Ensure sanskrit part is hidden initially (fresh card)
-        sanskritEl.style.display = "none";
-        cardRevealed = false;
-        // reset the scored flag for this new card
-        if (!currentCard.hasOwnProperty('scoredForCurrent')) {
-            currentCard.scoredForCurrent = false;
-        } else {
-            currentCard.scoredForCurrent = false;
-        }
-        // also clear input, feedback and reset lastAnswerCorrect status but not streak reset (correct streak only if you answer correctly)
-        answerInput.value = "";
-        feedbackDiv.innerHTML = "✨ नया श्लोक! नीचे संस्कृत में लिखें या कार्ड टैप करें। ✨";
-        feedbackDiv.className = "feedback";
-        // do not reset streak on load — but if user skips card by next without answering, we do not affect streak? we need to decide:
-        // In gamification, to be fair, streak only increments on correct answer, reset on wrong. pressing next keeps streak intact.
-        // However we reset lastAnswerCorrect to neutral
-        lastAnswerCorrect = false;
-        // Update stats display just for consistency
-        updateStatsUI();
-    }
-
-    // Next card: cycle and reset everything but keep score/streak as is. 
-    function nextCard() {
-        // move to next index (circular)
-        currentIndex = (currentIndex + 1) % cardsData.length;
-        loadCard();
-        // after new card, we give a little message
-        comboMsgSpan.innerHTML = streak > 0 ? `🔥 Streak ${streak} remains! Answer correctly to build.` : `Answer correctly to start fire streak!`;
-        // ensure focus
-        answerInput.focus();
-    }
-
-    // flip flashcard (toggle sanskrit visibility)
+    // toggle flashcard (reveal/hide sanskrit)
     function toggleFlashcard() {
-        if (cardRevealed) {
-            sanskritEl.style.display = "none";
-            cardRevealed = false;
+        if (isRevealed) {
+            sanskritBlock.style.display = "none";
+            isRevealed = false;
         } else {
-            sanskritEl.style.display = "block";
-            cardRevealed = true;
+            sanskritBlock.style.display = "block";
+            isRevealed = true;
         }
     }
 
-    // Bonus: initialize scoring metadata in cards
-    function initCardsMeta() {
-        for (let i=0; i<cardsData.length; i++) {
-            if (!cardsData[i].hasOwnProperty('scoredForCurrent')) {
-                cardsData[i].scoredForCurrent = false;
-            }
-        }
+    // share on X (Twitter) with current stats
+    function shareOnX() {
+        const shareText = `📖 After 5 years of Duolingo Hindi → now unlocking Bhagavad Gita in Sanskrit!\n\n🏆 My Gita Sanskrit score: ${score} pts\n🔥 Streak: ${streak}\n🌀 Learn Gita-centric Hindi→Sanskrit in 2 mins.\n\n#GitaSanskrit #DuolingoComplete #SanskritForAll`;
+        const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+        window.open(tweetUrl, '_blank');
     }
 
-    // reset stats? we keep it fresh but we also set initial streak/score from localStorage? but we make clean.
-    // For social sharing vibe, we can add a share on X hook (simulate)
-    function attachShareIntent() {
-        // add a subtle X sharing: tap on footer or we can dedicate a hidden share? but requirement just to post attention: include a tiny button? 
-        // The requirement: "I'll be posting on X so make it short" — so add an explicit tweet button.
-        const footerDiv = document.querySelector("footer");
-        const shareBtn = document.createElement("button");
-        shareBtn.innerText = "🐦 Share my Gita streak on X";
-        shareBtn.style.background = "#1DA1F2";
-        shareBtn.style.color = "white";
-        shareBtn.style.border = "none";
-        shareBtn.style.padding = "0.4rem 1rem";
-        shareBtn.style.borderRadius = "2rem";
-        shareBtn.style.fontSize = "0.75rem";
-        shareBtn.style.marginLeft = "0.5rem";
-        shareBtn.style.cursor = "pointer";
-        shareBtn.onclick = () => {
-            const text = `🔥 After 5 years of Duolingo Hindi → I'm now decoding Bhagavad Gita in Sanskrit! My score: ${score} pts, 🔥streak: ${streak}. गीता सारम् 🙏 #GitaSanskrit #DuolingoComplete #SanskritForAll`;
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-            window.open(twitterUrl, '_blank');
-        };
-        footerDiv.appendChild(shareBtn);
-    }
-
-    // Event listeners
+    // ----- event binding & init -----
     function bindEvents() {
-        checkBtn.addEventListener("click", handleCheckAnswer);
+        checkBtn.addEventListener("click", checkAnswer);
         nextBtn.addEventListener("click", nextCard);
         flashcardDiv.addEventListener("click", toggleFlashcard);
+        document.getElementById("shareXBtn").addEventListener("click", shareOnX);
         answerInput.addEventListener("keypress", (e) => {
             if (e.key === "Enter") {
                 e.preventDefault();
-                handleCheckAnswer();
+                checkAnswer();
             }
         });
     }
 
-    // initial startup
+    // initial setup
     function init() {
-        initCardsMeta();
+        currentIdx = 0;
+        currentVerse = VERSE_SET[0];
+        score = 0;
+        streak = 0;
+        alreadyScored = false;
+        loadCard();
+        updateUI();
         bindEvents();
-        loadCard();          // load first card
-        updateStatsUI();
-        attachShareIntent(); // X sharing ready
-        // set placeholder tone
-        comboMsgSpan.innerHTML = "⚡ First card: Type Sanskrit or tap card. Score +10 per correct!";
+        // small interactive message
+        feedbackDiv.innerHTML = "🌟 Tap card for Sanskrit. Type the Sanskrit verse below!";
+        feedbackDiv.className = "feedback";
         answerInput.focus();
     }
-
+    
     init();
 </script>
 </body>
